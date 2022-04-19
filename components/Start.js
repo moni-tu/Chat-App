@@ -44,6 +44,10 @@ export default class Start extends React.Component {
           <View style={styles.box1}>
             <View style={styles.inputBox}>
               <TextInput
+                accessible={true}
+                accessibilityLabel="type your name"
+                accessibilityHint="Lets you add your name that will be displayed in the chat page"
+                accessibilityRole="input"
                 style={styles.input}
                 onChangeText={(text) => this.setState({ name: text })}
                 value={this.state.name}
@@ -61,18 +65,34 @@ export default class Start extends React.Component {
             {/* All the colors to change the background are here! */}
             <View style={styles.colorArray}>
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="pick color black"
+                accessibilityHint="Lets you set the app background color to black"
+                accessibilityRole="color button"
                 style={styles.color1}
                 onPress={() => this.changeBgColor(this.colors.black)}
               ></TouchableOpacity>
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="pick color purple"
+                accessibilityHint="Lets you set the app background color to purple"
+                accessibilityRole="color button"
                 style={styles.color2}
                 onPress={() => this.changeBgColor(this.colors.purple)}
               ></TouchableOpacity>
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="pick color grey"
+                accessibilityHint="Lets you set the app background color to grey"
+                accessibilityRole="color button"
                 style={styles.color3}
                 onPress={() => this.changeBgColor(this.colors.grey)}
               ></TouchableOpacity>
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="pick color green"
+                accessibilityHint="Lets you set the app background color to green"
+                accessibilityRole="color button"
                 style={styles.color4}
                 onPress={() => this.changeBgColor(this.colors.green)}
               ></TouchableOpacity>
@@ -80,6 +100,10 @@ export default class Start extends React.Component {
 
             {/*This will allow the user to click on a button and be redirected to the chat page */}
             <Pressable
+              accessible={true}
+              accessibilityLabel="got to the chat page"
+              accessibilityHint="Lets you start chatting after picking a background color"
+              accessibilityRole="button"
               style={styles.button}
               onPress={() =>
                 this.props.navigation.navigate("Chat", {
