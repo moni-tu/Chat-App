@@ -19,7 +19,7 @@ export default class Start extends React.Component {
   changeBgColor = (newColor) => {
     this.setState({ bgColor: newColor });
   };
-
+  // backgroud colors to choose
   colors = {
     black: "#090C08",
     purple: "#474056",

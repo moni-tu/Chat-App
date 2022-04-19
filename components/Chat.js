@@ -53,7 +53,7 @@ export default class Chat extends React.Component {
       />
     )
   }
-  
+
   render() {
     return (
       <View style={styles.chatView}>
@@ -65,6 +65,7 @@ export default class Chat extends React.Component {
           _id: 1,
         }}
       />
+      {/* this avoids the keyboard to overlap pver the typed text in android */}
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
       </View>
     )
