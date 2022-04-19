@@ -38,13 +38,16 @@ export default class Chat extends React.Component {
 
   render() {
     return (
-      <GiftedChat
+      <View>
+        <GiftedChat
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: 1,
         }}
       />
+      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
+      </View>
     )
   }
 }
