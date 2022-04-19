@@ -63,6 +63,7 @@ export default class Chat extends React.Component {
         onSend={messages => this.onSend(messages)}
         user={{
           _id: 1,
+          name: this.state.name
         }}
       />
       {/* this avoids the keyboard to overlap pver the typed text in android */}
