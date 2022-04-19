@@ -13,8 +13,30 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
+      uid: 0,
+      user: {
+        _id: "",
+        name: "",
+        avatar: "",
+      },
+    };
+
+    //information for the database
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyAv32VWewXrMup-cRjJnxvQ_ZZiz8N_6uk",
+        authDomain: "chatapp-c0a0d.firebaseapp.com",
+        projectId: "chatapp-c0a0d",
+        storageBucket: "chatapp-c0a0d.appspot.com",
+        messagingSenderId: "1022347094695",
+        appId: "1:1022347094695:web:25f32ca6a4c739bca24982",
+        measurementId: "G-8R3H32XG2F"
+      });
     }
-  }
+
+    //references the database
+    this.referenceChatMessages = firebase.firestore().collection("messages");
+  };
 
   componentDidMount() {
     this.setState({
