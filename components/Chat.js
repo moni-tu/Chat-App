@@ -1,13 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
-import * as firebase from 'firebase';
-import "firebase/firestore";
 
 // import Firestore
 const firebase = require('firebase');
 require('firebase/firestore');
-
 
 export default class Chat extends React.Component {
 
@@ -52,24 +49,12 @@ export default class Chat extends React.Component {
 
       this.setState({
         uid: user.uid,
-        messages: [
-          {
-            _id: 1,
-            text: "Hello developer",
-            createdAt: new Date(),
-            user: {
-              _id: 2,
-              name: "React Native",
-              avatar: "https://placeimg.com/140/140/any",
-            },
-          },
-          {
-            _id: 2,
-            text: 'This is a system message',
-            createdAt: new Date(),
-            system: true,
-          },
-        ],
+        messages: [],
+        user: {
+          _id: user.uid,
+          name: name,
+          avatar: "https://placeimg.com/140/140/any"
+        }
       });
 
       this.unsubscribe = this.referenceChatMessages
@@ -78,7 +63,7 @@ export default class Chat extends React.Component {
 
     });
 
-    onCollectionUpdate = (querySnapshot) => {
+    /* onCollectionUpdate = (querySnapshot) => {
       const messages = [];
       // go through each document
       querySnapshot.forEach((doc) => {
@@ -98,8 +83,8 @@ export default class Chat extends React.Component {
       this.setState({
         messages: messages,
       });
-    };
-  }
+    };*/
+  } 
 
   //adding messages to the database
   addMessage() {
