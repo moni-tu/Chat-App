@@ -39,26 +39,62 @@ export default class Chat extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: "Hello developer",
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: "React Native",
-            avatar: "https://placeimg.com/140/140/any",
+    // why should I write this twice??
+    const name = this.props.route.params.name;
+    this.props.navigation.setOptions({ title: name});
+
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        firebase.auth().signInAnonymously();
+      }
+
+      this.setState({
+        uid: user.uid,
+        messages: [
+          {
+            _id: 1,
+            text: "Hello developer",
+            createdAt: new Date(),
+            user: {
+              _id: 2,
+              name: "React Native",
+              avatar: "https://placeimg.com/140/140/any",
+            },
           },
-        },
-        {
-          _id: 2,
-          text: 'This is a system message',
-          createdAt: new Date(),
-          system: true,
-        },
-      ],
+          {
+            _id: 2,
+            text: 'This is a system message',
+            createdAt: new Date(),
+            system: true,
+          },
+        ],
+      });
+
+      this.unsubscribe = this.referenceChatMessages
+       .orderBy("createdAt", "desc")
+       .onSnapshot(this.onCollectionUpdate);
+
     });
+
+    onCollectionUpdate = (querySnapshot) => {
+      const lists = [];
+      // go through each document
+      querySnapshot.forEach((doc) => {
+        // get the QueryDocumentSnapshot's data
+        var data = doc.data();
+        lists.push({
+          name: data.name,
+          items: data.items.toString(),
+        });
+      });
+      this.setState({
+        lists,
+      });
+    };
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   onSend(messages = []) {
@@ -91,6 +127,11 @@ export default class Chat extends React.Component {
           _id: 1,
           name: this.state.name
         }}
+      />
+      <FlatList
+        data={this.state.lists}
+        renderItem={({ item }) =>
+        <Text>{item.name}: {item.items}</Text>}
       />
       {/* this avoids the keyboard to overlap pver the typed text in android */}
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
