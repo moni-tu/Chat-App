@@ -38,7 +38,7 @@ export default class Chat extends React.Component {
   };
 
   componentDidMount() {
-    // why should I write this twice??
+
     const name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name});
 
@@ -63,28 +63,30 @@ export default class Chat extends React.Component {
 
     });
 
-    /* onCollectionUpdate = (querySnapshot) => {
-      const messages = [];
-      // go through each document
-      querySnapshot.forEach((doc) => {
-        // get the QueryDocumentSnapshot's data
-        var data = doc.data();
-        messages.push({
-          _id: data._id,
-          text: data.text,
-          createdAt: data.createdAt.toDate(),
-          user: {
-            _id: data.user._id,
-            name: data.user.name,
-            avatar: data.user.avatar
-          },
-        });
-      });
-      this.setState({
-        messages: messages,
-      });
-    };*/
+   
   } 
+
+  onCollectionUpdate = (querySnapshot) => {
+    const messages = [];
+    // go through each document
+    querySnapshot.forEach((doc) => {
+      // get the QueryDocumentSnapshot's data
+      var data = doc.data();
+      messages.push({
+        _id: data._id,
+        text: data.text,
+        createdAt: data.createdAt.toDate(),
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+          avatar: data.user.avatar
+        },
+      });
+    });
+    this.setState({
+      messages: messages,
+    });
+  };
 
   //adding messages to the database
   addMessage() {
