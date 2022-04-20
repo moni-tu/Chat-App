@@ -62,8 +62,6 @@ export default class Chat extends React.Component {
        .onSnapshot(this.onCollectionUpdate);
 
     });
-
-   
   } 
 
   onCollectionUpdate = (querySnapshot) => {
@@ -86,7 +84,7 @@ export default class Chat extends React.Component {
     this.setState({
       messages: messages,
     });
-  };
+  }
 
   //adding messages to the database
   addMessage() {
@@ -139,8 +137,9 @@ export default class Chat extends React.Component {
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
-          _id: 1,
-          name: this.state.name
+          _id: this.state.user._id,
+          name: this.state.name,
+          avatar: this.state.user.avatar,
         }}
       />
       {/* this avoids the keyboard to overlap pver the typed text in android */}
