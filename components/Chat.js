@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import * as firebase from 'firebase';
+import "firebase/firestore";
 
 // import Firestore
 const firebase = require('firebase');
@@ -118,7 +120,7 @@ export default class Chat extends React.Component {
       this.addMessage();
     })
   }
-  
+
   componentWillUnmount() {
     if (this.state.isConnected) {
       this.authUnsubscribe();
