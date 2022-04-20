@@ -142,11 +142,6 @@ export default class Chat extends React.Component {
           name: this.state.name
         }}
       />
-      <FlatList
-        data={this.state.lists}
-        renderItem={({ item }) =>
-        <Text>{item.name}: {item.items}</Text>}
-      />
       {/* this avoids the keyboard to overlap pver the typed text in android */}
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
       </View>
