@@ -110,18 +110,20 @@ export default class Chat extends React.Component {
       user: this.state.user
     });
   };
-
+  //when a message is sent, calls addMessage
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }),() => {
+      this.addMessage();
+    })
+  }
+  
   componentWillUnmount() {
     if (this.state.isConnected) {
       this.authUnsubscribe();
       this.unsubscribe();
     }
-  }
-
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
   }
 
   renderBubble(props) {
