@@ -77,14 +77,16 @@ export default class Chat extends React.Component {
     });
 
     onCollectionUpdate = (querySnapshot) => {
-      const lists = [];
+      const messages = [];
       // go through each document
       querySnapshot.forEach((doc) => {
         // get the QueryDocumentSnapshot's data
         var data = doc.data();
-        lists.push({
-          name: data.name,
-          items: data.items.toString(),
+        messages.push({
+          _id: data._id,
+          text: data.text,
+          createdAt: data.createdAt.toDate(),
+          user: data.user,
         });
       });
       this.setState({
@@ -92,6 +94,18 @@ export default class Chat extends React.Component {
       });
     };
   }
+
+  //adding messages to the database
+  addMessage() {
+    const message = this.state.messages[0];
+
+    this.referenceChatMessages.add({
+      _id: message._id,
+      createdAt: message.createdAt,
+      text: message.text,
+      user: this.state.user
+    });
+  };
 
   componentWillUnmount() {
     this.unsubscribe();
