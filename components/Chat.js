@@ -7,7 +7,7 @@ const firebase = require('firebase');
 require('firebase/firestore');
 
 // import async storage
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import netinfo package to find out if a user is online or not
 import NetInfo from '@react-native-community/netinfo';
 
@@ -53,7 +53,7 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
   }
-
+  // saves message in asynstorage
   async saveMessages() {
     try {
       await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
@@ -61,7 +61,7 @@ export default class Chat extends React.Component {
       console.log(error.message);
     }
   }
-
+  // deletes messages in asynstorage
   async deleteMessages() {
     try {
       await AsyncStorage.removeItem('messages');
@@ -191,6 +191,7 @@ export default class Chat extends React.Component {
       <View style={styles.chatView}>
         <GiftedChat
         renderBubble={this.renderBubble.bind(this)}
+        renderInputToolbar={this.renderInputToolbar}
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
