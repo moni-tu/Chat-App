@@ -80,6 +80,14 @@ export default class Chat extends React.Component {
     const name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name});
 
+    NetInfo.fetch().then(connection => {
+      if (connection.isConnected) {
+        console.log('online');
+      } else {
+        console.log('offline');
+      }
+    });
+
     this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         firebase.auth().signInAnonymously();
