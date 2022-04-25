@@ -8,6 +8,8 @@ require('firebase/firestore');
 
 // import async storage
 import AsyncStorage from '@react-native-community/async-storage';
+// import netinfo package to find out if a user is online or not
+import NetInfo from '@react-native-community/netinfo';
 
 export default class Chat extends React.Component {
 
