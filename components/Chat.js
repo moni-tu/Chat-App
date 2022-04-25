@@ -39,7 +39,7 @@ export default class Chat extends React.Component {
     //references the database
     this.referenceChatMessages = firebase.firestore().collection("messages");
   };
-
+  // retrieves the chat messages from async storage
   async getMessages() {
     let messages = '';
     try {
@@ -50,7 +50,10 @@ export default class Chat extends React.Component {
     } catch (error) {
       console.log(error.message);
     }
+  }
 
+  async saveMessages() {
+    
   }
 
   componentDidMount() {
@@ -115,12 +118,12 @@ export default class Chat extends React.Component {
       user: this.state.user
     });
   };
-  //when a message is sent, calls addMessage
+  //when a message is sent, save its current state into asyncStorage
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }),() => {
-      this.addMessage();
+      this.saveMessages();
     })
   }
 
