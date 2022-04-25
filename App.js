@@ -10,6 +10,8 @@ import 'react-native-gesture-handler';
 // import react Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+// import async storage
+import AsyncStorage from '@react-native-community/async-storage';
 
 // create navigator
 const Stack = createStackNavigator();
