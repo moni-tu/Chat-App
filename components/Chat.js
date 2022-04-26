@@ -17,9 +17,9 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
-      uid: 0,
+      uid: 1,
       user: {
-        _id: "",
+        _id: 1,
         name: "",
         avatar: "",
       },
@@ -77,10 +77,13 @@ export default class Chat extends React.Component {
   componentDidMount() {
 
     //this.getMessages();
+    // get username prop from Start.js
     const name = this.props.route.params.name;
+    // if (name === '') name = 'UNNAMED'
     this.props.navigation.setOptions({ title: name});
 
     NetInfo.fetch().then(connection => {
+      // if user is online
       if (connection.isConnected) {
         this.setState({ isConnected: true });
         console.log('online');
@@ -146,6 +149,7 @@ export default class Chat extends React.Component {
 
   //adding messages to the database
   addMessage() {
+    // add a new message to the collection
     const message = this.state.messages[0];
 
     this.referenceChatMessages.add({
@@ -160,6 +164,7 @@ export default class Chat extends React.Component {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }),() => {
+      // save messages to local AsyncStorage
       this.saveMessages();
     })
   }
