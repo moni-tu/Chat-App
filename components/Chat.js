@@ -11,6 +11,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import netinfo package to find out if a user is online or not
 import NetInfo from '@react-native-community/netinfo';
 
+// import custom actions to add to GiftedChats
+import CustomActions from './CustomActions';
+
 export default class Chat extends React.Component {
 
   constructor() {
@@ -199,6 +202,10 @@ export default class Chat extends React.Component {
       return <InputToolbar {...props} />;
     }
   }
+
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
 
   render() {
     return (

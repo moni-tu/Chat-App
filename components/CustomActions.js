@@ -4,6 +4,31 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
 export default class CustomActions extends React.Component {
 
+    // Handling all communication features
+    onActionPress = () => {
+        const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+        const cancelButtonIndex = options.length - 1;
+        this.context.actionSheet().showActionSheetWithOptions(
+          {
+            options,
+            cancelButtonIndex,
+          },
+          async (buttonIndex) => {
+            switch (buttonIndex) {
+              case 0:
+                console.log('user wants to pick an image');
+                return;
+              case 1:
+                console.log('user wants to take a photo');
+                return;
+              case 2:
+                console.log('user wants to get their location');
+              default:
+            }
+          },
+        );
+      };
+
     render() {
         return (
           <TouchableOpacity style={[styles.container]} onPress={this.onActionPress}>
@@ -34,5 +59,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       backgroundColor: 'transparent',
       textAlign: 'center',
+      textAlignVertical:'center'
     },
    });
