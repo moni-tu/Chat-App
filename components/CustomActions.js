@@ -11,19 +11,21 @@ export default class CustomActions extends React.Component {
 
     imagePicker = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    
-        if(status === 'granted') {
-          let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: 'Images',
-          }).catch(error => console.log(error));
-    
-          if (!result.cancelled) {
-            this.setState({
-              image: result
-            });  
-          }
+        try {
+            if(status === 'granted') {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images, // only images are allowed
+            }).catch(error => console.log(error));
+        
+            if (!result.cancelled) {
+                const imageUrl = await this.uploadImageFetch(result.uri);
+                this.props.onSend({ image: imageUrl });  
+            }
+            }
+        } catch (error) {
+            console.log(error.message);
         }
-    }
+    };
 
     // Handling all communication features
     onActionPress = () => {
