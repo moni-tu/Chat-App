@@ -15,24 +15,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // create navigator
 const Stack = createStackNavigator();
+// import custom actions to add to GiftedChats
+import CustomActions from './CustomActions';
 
 export default class App extends React.Component {
- render() {
-   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Start"
-      >
-        <Stack.Screen
-          name="Start" component={Start}
-        />
-        <Stack.Screen
-          name="Chat" component={Chat}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-   );
- }
+
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Start"
+        >
+          <Stack.Screen
+            name="Start" component={Start}
+          />
+          <Stack.Screen
+            name="Chat" component={Chat}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 // style sheet at the bottom

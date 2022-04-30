@@ -81,7 +81,8 @@ export default class Chat extends React.Component {
     const name = this.props.route.params.name;
     // if (name === '') name = 'UNNAMED'
     this.props.navigation.setOptions({ title: name});
-
+    
+    // NetInfo detects whether or not the user has an internet connection
     NetInfo.fetch().then(connection => {
       // if user is online
       if (connection.isConnected) {
@@ -206,6 +207,7 @@ export default class Chat extends React.Component {
         renderBubble={this.renderBubble.bind(this)}
         renderInputToolbar={this.renderInputToolbar.bind(this)}
         messages={this.state.messages}
+        renderActions={this.renderCustomActions}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: this.state.user._id,
