@@ -27,6 +27,24 @@ export default class CustomActions extends React.Component {
         }
     };
 
+    takePhoto = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
+        try {
+            if(status === 'granted') {
+                let result = await ImagePicker.launchCameraAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                }).catch(error => console.log(error));
+            
+                if (!result.cancelled) {
+                    const imageUrl = await this.uploadImageFetch(result.uri);
+                    this.props.onSend({ image: imageUrl }); 
+                }
+            }
+        }catch (error) {
+            console.log(error.message);
+        }
+    };
+
     // Handling all communication features
     onActionPress = () => {
         const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
@@ -43,7 +61,7 @@ export default class CustomActions extends React.Component {
                 return this.imagePicker();
               case 1:
                 console.log('user wants to take a photo');
-                /* return this.takePhoto(); */
+                return this.takePhoto();
               case 2:
                 console.log('user wants to get their location');
                 /* return this.getLocation(); */
