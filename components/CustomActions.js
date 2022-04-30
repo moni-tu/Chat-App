@@ -1,8 +1,29 @@
 import React from "react";
+//  import PropTypes
 import PropTypes from "prop-types";
+//import necessary components from react-native
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+//import permissions and imagepicker
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 
 export default class CustomActions extends React.Component {
+
+    imagePicker = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    
+        if(status === 'granted') {
+          let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: 'Images',
+          }).catch(error => console.log(error));
+    
+          if (!result.cancelled) {
+            this.setState({
+              image: result
+            });  
+          }
+        }
+    }
 
     // Handling all communication features
     onActionPress = () => {
@@ -17,13 +38,13 @@ export default class CustomActions extends React.Component {
             switch (buttonIndex) {
               case 0:
                 console.log('user wants to pick an image');
-                return;
+                return this.imagePicker();
               case 1:
                 console.log('user wants to take a photo');
-                return;
+                /* return this.takePhoto(); */
               case 2:
                 console.log('user wants to get their location');
-              default:
+                /* return this.getLocation(); */
             }
           },
         );
