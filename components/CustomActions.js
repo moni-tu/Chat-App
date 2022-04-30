@@ -27,7 +27,7 @@ export default class CustomActions extends React.Component {
             }
           },
         );
-      };
+    };
 
     render() {
         return (
@@ -37,7 +37,7 @@ export default class CustomActions extends React.Component {
             </View>
           </TouchableOpacity>
         );
-      }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -61,4 +61,9 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       textAlignVertical:'center'
     },
-   });
+});
+
+
+CustomActions.contextTypes = {
+    actionSheet: PropTypes.func,
+};
