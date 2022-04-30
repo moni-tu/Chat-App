@@ -5,14 +5,14 @@ import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat'
 // import Firestore
 const firebase = require('firebase');
 require('firebase/firestore');
-
 // import async storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import netinfo package to find out if a user is online or not
 import NetInfo from '@react-native-community/netinfo';
-
 // import custom actions to add to GiftedChats
 import CustomActions from './CustomActions';
+// import the necessary components from Expo
+import { Constants, MapView, Location, Permissions } from 'expo';
 
 export default class Chat extends React.Component {
 
@@ -144,6 +144,7 @@ export default class Chat extends React.Component {
           name: data.user.name,
           avatar: data.user.avatar
         },
+        image: data.image || null,
       });
     });
     this.setState({
@@ -160,7 +161,8 @@ export default class Chat extends React.Component {
       _id: message._id,
       createdAt: message.createdAt,
       text: message.text,
-      user: this.state.user
+      user: this.state.user,
+      image: message.image || null,
     });
   };
   //when a message is sent, save its current state into asyncStorage
