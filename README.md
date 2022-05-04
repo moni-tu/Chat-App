@@ -5,10 +5,10 @@
 The objective is to build a chat app for mobile devices using React Native. The app will provide users with a chat interface and options to share images, pictures and their location.
 
 Start Page Screenshot
-![Chat App Start page screenshot](https://user-images.githubusercontent.com/91124224/166722461-0256da0b-0a4b-4dc7-b406-529c594eb698.jpg)
+![Chat App Start page screenshot](https://user-images.githubusercontent.com/91124224/166723371-6d74963b-6f1c-4945-97bb-c6e0f6e06584.jpg)
 
 Chat Page screenshot
-![Chat App Chat page screenshot](https://user-images.githubusercontent.com/91124224/166722435-f85ddb6f-89fd-4e36-8998-0052db65e62b.jpg)
+![Chat App Chat page screenshot](https://user-images.githubusercontent.com/91124224/166723388-f0b9de45-c5f7-4ab4-b246-ff9ec93eca86.jpg)
 
 ## Features and Requirements
 
