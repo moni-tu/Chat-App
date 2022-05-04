@@ -218,15 +218,17 @@ export default class Chat extends React.Component {
     const { currentMessage } = props;
     if (currentMessage.location) {
       return (
-        <MapView
-          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
-          region={{
-            latitude: currentMessage.location.latitude,
-            longitude: currentMessage.location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
+        <View>
+          <MapView
+            style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </View>
       );
     }
     return null;
@@ -240,6 +242,9 @@ export default class Chat extends React.Component {
   
   //render components
   render() {
+    //background color chosen in Start screen is set as const bgColor
+    const { bgColor } = this.props.route.params;
+
     return (
       <View style={styles.chatView}>
         <GiftedChat
