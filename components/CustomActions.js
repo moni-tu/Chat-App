@@ -49,18 +49,31 @@ export default class CustomActions extends React.Component {
         }
     };
 
+    // Access and send the user's location
     getLocation = async () => {
-        const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
-        if(status === 'granted') {
-          let result = await Location.getCurrentPositionAsync({});
-     
+      // permission to access user location while the app is in the foreground
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      try {
+        if (status === "granted") {
+          let result = await Location.getCurrentPositionAsync({}).catch(
+            (error) => {
+              console.error(error);
+            }
+          );
+          // Send latitude and longitude to locate the position on the map
           if (result) {
-            this.setState({
-              location: result
+            this.props.onSend({
+              location: {
+                longitude: result.coords.longitude,
+                latitude: result.coords.latitude,
+              },
             });
           }
         }
-    }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     // Upload images to firebase
     uploadImageFetch = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
@@ -108,7 +121,7 @@ export default class CustomActions extends React.Component {
                 return this.takePhoto();
               case 2:
                 console.log('user wants to get their location');
-                /* return this.getLocation(); */
+                return this.getLocation();
             }
           },
         );
