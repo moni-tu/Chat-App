@@ -12,7 +12,7 @@ import NetInfo from '@react-native-community/netinfo';
 // import custom actions to add to GiftedChats
 import CustomActions from './CustomActions';
 // import the necessary components from Expo
-import { Constants, MapView, Location, Permissions } from 'expo';
+import MapView from 'react-native-maps';
 
 export default class Chat extends React.Component {
 
@@ -20,9 +20,9 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
-      uid: 1,
+      uid: 0,
       user: {
-        _id: 1,
+        _id: "",
         name: "",
         avatar: "",
       },
@@ -205,18 +205,15 @@ export default class Chat extends React.Component {
     )
   }
 
+  // renders the chat input field toolbar only when user is online
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {
       return <InputToolbar {...props} />;
     }
   }
-  // displays the communication features
-  renderCustomActions = (props) => {
-    return <CustomActions {...props} />;
-  };
 
-  //custom map view
+  // Returns a mapview when user adds a location to current message
   renderCustomView(props) {
     const { currentMessage } = props;
     if (currentMessage.location) {
@@ -234,6 +231,13 @@ export default class Chat extends React.Component {
     }
     return null;
   }
+
+  // displays the communication features
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
+  
   //render components
   render() {
     return (
