@@ -51,29 +51,17 @@ export default class CustomActions extends React.Component {
 
     // Access and send the user's location
     getLocation = async () => {
-      // permission to access user location while the app is in the foreground
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      try {
-        if (status === "granted") {
-          let result = await Location.getCurrentPositionAsync({}).catch(
-            (error) => {
-              console.error(error);
-            }
-          );
-          // Send latitude and longitude to locate the position on the map
-          if (result) {
-            this.props.onSend({
-              location: {
-                longitude: result.coords.longitude,
-                latitude: result.coords.latitude,
-              },
-            });
-          }
+      const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
+      if(status === 'granted') {
+        let result = await Location.getCurrentPositionAsync({});
+
+        if (result) {
+          this.setState({
+            location: result
+          });
         }
-      } catch (error) {
-        console.error(error);
       }
-    };
+    }
     // Upload images to firebase
     uploadImageFetch = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
@@ -133,10 +121,10 @@ export default class CustomActions extends React.Component {
                 style={[styles.container]} 
                 onPress={this.onActionPress}
             >
-            <View style={[styles.wrapper, this.props.wrapperStyle]}>
-              <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
-            </View>
-          </TouchableOpacity>
+              <View style={[styles.wrapper, this.props.wrapperStyle]}>
+                <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
+              </View>
+            </TouchableOpacity>
         );
     }
 }
