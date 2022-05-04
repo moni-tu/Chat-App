@@ -100,10 +100,12 @@ export default class Chat extends React.Component {
           .onSnapshot(this.onCollectionUpdate);
 
         //listen to authentication events, sign in anonymously
-        this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-          if (!user) {
-            firebase.auth().signInAnonymously();
-          }
+        this.authUnsubscribe = firebase
+          .auth()
+          .onAuthStateChanged((user) => {
+            if (!user) {
+              firebase.auth().signInAnonymously();
+            }
             //update user state with currently active user data
             this.setState({
               uid: user.uid,
@@ -123,7 +125,7 @@ export default class Chat extends React.Component {
         //save messages when online
         this.saveMessages();
       } else {
-          // the user is offline
+          // when the user is offline
           this.setState({ isConnected: false });
           console.log('offline');
           //retrieve chat from asyncstorage
@@ -132,6 +134,7 @@ export default class Chat extends React.Component {
     });
   } 
 
+  // when updated set the messages state with the current data
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // go through each document
@@ -148,6 +151,7 @@ export default class Chat extends React.Component {
           avatar: data.user.avatar
         },
         image: data.image || null,
+        location: data.location || null,
       });
     });
     this.setState({
@@ -166,6 +170,7 @@ export default class Chat extends React.Component {
       text: message.text,
       user: this.state.user,
       image: message.image || null,
+      location: message.location || null,
     });
   };
   //when a message is sent, save its current state into asyncStorage
@@ -173,6 +178,8 @@ export default class Chat extends React.Component {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }),() => {
+      // add messages to local AsyncStorage
+      this.addMessages();
       // save messages to local AsyncStorage
       this.saveMessages();
     })
