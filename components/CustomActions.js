@@ -7,14 +7,14 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from "expo-location";
-// import firebase
-import firebase from 'firebase';
-import firestore from 'firebase';
+// import Firestore
+const firebase = require('firebase');
+require('firebase/firestore');
 
 export default class CustomActions extends React.Component {
 
     imagePicker = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
         try {
             if(status === 'granted') {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,7 +32,7 @@ export default class CustomActions extends React.Component {
     };
 
     takePhoto = async () => {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA);
+        const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.CAMERA);
         try {
             if(status === 'granted') {
                 let result = await ImagePicker.launchCameraAsync({
@@ -50,7 +50,7 @@ export default class CustomActions extends React.Component {
     };
 
     getLocation = async () => {
-        const { status } = await Permissions.askAsync(Permissions.LOCATION);
+        const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
         if(status === 'granted') {
           let result = await Location.getCurrentPositionAsync({});
      
