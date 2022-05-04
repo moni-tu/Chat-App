@@ -100,22 +100,19 @@ export default class Chat extends React.Component {
           .onSnapshot(this.onCollectionUpdate);
 
         //listen to authentication events, sign in anonymously
-        this.authUnsubscribe = firebase
-          .auth()
-          .onAuthStateChanged((user) => {
-            if (!user) {
-              firebase.auth().signInAnonymously();
+        this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+          if (!user) {
+            firebase.auth().signInAnonymously();
+          }
+          this.setState({
+            uid: user.uid,
+            messages: [],
+            user: {
+              _id: user.uid,
+              name: name,
+              avatar: "https://placeimg.com/140/140/any"
             }
-            //update user state with currently active user data
-            this.setState({
-              uid: user.uid,
-              messages: [],
-              user: {
-                _id: user.uid,
-                name: name,
-                avatar: "https://placeimg.com/140/140/any"
-              }
-            });
+          });
             //referencing messages of current user
             this.refMsgsUser = firebase
               .firestore()
@@ -179,7 +176,7 @@ export default class Chat extends React.Component {
       messages: GiftedChat.append(previousState.messages, messages),
     }),() => {
       // add messages to local AsyncStorage
-      this.addMessages();
+      this.addMessage();
       // save messages to local AsyncStorage
       this.saveMessages();
     })
