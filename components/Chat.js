@@ -26,6 +26,9 @@ export default class Chat extends React.Component {
         name: "",
         avatar: "",
       },
+      isConnected: false,
+      image: null,
+      location: null,
     };
 
     //information for the database
