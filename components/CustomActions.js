@@ -10,6 +10,8 @@ import * as Location from "expo-location";
 // import Firestore
 const firebase = require('firebase');
 require('firebase/firestore');
+// import firebase storage (commented out because the app does not find it)
+/* import storage from '@react-native-firebase/storage'; */
 
 export default class CustomActions extends React.Component {
 
@@ -64,6 +66,7 @@ export default class CustomActions extends React.Component {
     }
     // Upload images to firebase
     uploadImageFetch = async (uri) => {
+        // create your own blob with a new XMLHttpRequest
         const blob = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
           xhr.onload = function () {
@@ -77,7 +80,7 @@ export default class CustomActions extends React.Component {
           xhr.open("GET", uri, true);
           xhr.send(null);
         });
-    
+        // create a reference to the storage, use put to store the content retrieved from the Ajax request
         const imageNameBefore = uri.split("/");
         const imageName = imageNameBefore[imageNameBefore.length - 1];
     
