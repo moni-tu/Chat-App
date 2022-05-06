@@ -79,9 +79,7 @@ The objective is to build a chat app for mobile devices using React Native. The 
 
 ### Installation
 
-#### Install prerequisets
-
-● Node.js and npm
+#### Install prerequisites
 
     ● Node.js and npm
     ● Android Studio or Xcode for iOS
