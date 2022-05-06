@@ -158,13 +158,14 @@ export default class Chat extends React.Component {
 
   //adding messages to the database
   addMessage() {
-    // add a new message to the collection
+    // add a new message to the firebase collection
     const message = this.state.messages[0];
 
     this.referenceChatMessages.add({
+      uid: this.state.uid,
       _id: message._id,
       createdAt: message.createdAt,
-      text: message.text,
+      text: message.text || '',
       user: this.state.user,
       image: message.image || null,
       location: message.location || null,
@@ -218,9 +219,9 @@ export default class Chat extends React.Component {
     const { currentMessage } = props;
     if (currentMessage.location) {
       return (
-        <View>
+        <View style={{ borderRadius: 13, overflow: 'hidden', margin: 3 }}>
           <MapView
-            style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+            style={{ width: 150, height: 100 }}
             region={{
               latitude: currentMessage.location.latitude,
               longitude: currentMessage.location.longitude,
