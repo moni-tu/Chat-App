@@ -54,14 +54,26 @@ export default class CustomActions extends React.Component {
     // Access and send the user's location
     getLocation = async () => {
       const { status } = await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
-      if(status === 'granted') {
-        let result = await Location.getCurrentPositionAsync({});
-
-        if (result) {
-          this.setState({
-            location: result
-          });
+      try {
+        if (status === "granted") {
+          let result = await Location.getCurrentPositionAsync({}).catch(
+            (error) => {
+              console.error(error);
+            }
+          );
+          // Send latitude and longitude to locate the position on the map
+          if (result) {
+            console.log(result);
+            this.props.onSend({
+              location: {
+                longitude: result.coords.longitude,
+                latitude: result.coords.latitude,
+              },
+            });
+          }
         }
+      } catch (error) {
+        console.error(error);
       }
     }
     // Upload images to firebase
