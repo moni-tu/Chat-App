@@ -4,13 +4,13 @@
 
 The objective is to build a chat app for mobile devices using React Native. The app will provide users with a chat interface and options to share images, pictures and their location.
 
+## Features and Requirements
+
 Start Page Screenshot
 ![Chat App Start page screenshot](https://user-images.githubusercontent.com/91124224/166723371-6d74963b-6f1c-4945-97bb-c6e0f6e06584.jpg)
 
 Chat Page screenshot
 ![Chat App Chat page screenshot](https://user-images.githubusercontent.com/91124224/166723388-f0b9de45-c5f7-4ab4-b246-ff9ec93eca86.jpg)
-
-## Features and Requirements
 
 ### User Stories
 
@@ -49,3 +49,32 @@ and location data.
 ● Location data is sent via the chat in a map view.
 ● The chat interface and functionality are created using the Gifted Chat library.
 ● The app’s codebase contains comments.
+
+### Technologies
+
+    ● React Native
+    ● Expo
+    ● Google Firebase
+    ● Gifted Chat
+
+### Installation
+
+#### Install prerequisets
+
+    ● Node.js and npm
+    ● Android Studio or Xcode for iOS
+    ● Expo / Expo Go
+
+#### Install required packages from package.json
+
+    ● Download this repo
+    ● Navigate to root folder via CLI
+    ● Install required packages in package.json
+
+### Run the App
+
+    ● Navigate to root folder
+    ● Run expo start or npm start
+    ● Expo will build the project and display development options in a browser window.
+    ● The Expo Go app can be used to show the app on a physical device. Scan the QR Code in the development options with the app
+    ● The app can also be run through an emulator on your desktop via Expo
